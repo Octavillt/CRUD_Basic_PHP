@@ -9,7 +9,7 @@ $conexion = mysqli_connect($host, $user, $password, $db);
 
 if(mysqli_connect_error($conexion)){
 	echo "Error en la Conexión: ".mysqli_connect_errno();
-	exit();
+	die();
 }else{
 	//echo "Conexión Exitosa.";
 }

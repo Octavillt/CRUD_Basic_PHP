@@ -15,7 +15,6 @@ require_once('conexion.php');
 			$sql_query = mysqli_query($conexion,"SELECT email FROM persona WHERE email = '$correo'");
 
 			$result_query = mysqli_num_rows($sql_query);
-
 			if($result_query > 0){
 				echo "El correo ya existe.";			
 			}else{
