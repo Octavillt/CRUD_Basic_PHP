@@ -13,8 +13,4 @@ if(mysqli_connect_error($conexion)){
 }else{
 	//echo "Conexión Exitosa.";
 }
-
-
-
-
  ?>
