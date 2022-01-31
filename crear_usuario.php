@@ -24,7 +24,7 @@ if(!empty($_POST)){
 		El Correo ya esta Registrado.
 		</div>';		
 	}else{
-		$sql_insert = mysqli_query($conexion,"INSERT INTO persona(nombre, apellido, telefono, email) VALUES ('$nombre','$apellidos',$telefono,'$correo')");
+		$sql_insert = mysqli_query($conexion,"INSERT INTO persona(nombre, apellido, telefono, email, status) VALUES ('$nombre','$apellidos',$telefono,'$correo',1)");
 
 		if($sql_insert == true){
 			$alert = '<div class="alert alert-success text-center">
@@ -53,6 +53,9 @@ if(!empty($_POST)){
 <body>
 	<div class="container">
 		<div class="row shadow-none p-3 mb-5 bg-light rounded justify-content-center">	
+			<div class="col-sm-25">
+				<a href="listar_usuarios.php" class="btn btn-info"> Listar Usuarios</a>
+			</div>
 			<div class="col-md-9">
 				<?= isset($alert) ? $alert : ''; ?>
 				<div class="card form shadow p-3 mb-5 bg-white rounded">
@@ -80,9 +83,9 @@ if(!empty($_POST)){
 								name="txtemail" id="txtemail">
 							</div>
 							<div class="text-center align-items-center justify-content-center">
-									<div class="col-auto">
-										<input type="submit" class="btn btn-success" value="Guardar Usuario">
-									</div>
+								<div class="col-auto">
+									<input type="submit" class="btn btn-success" value="Guardar Usuario">
+								</div>
 							</div>
 						</form>
 					</div>

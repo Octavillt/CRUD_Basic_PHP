@@ -12,6 +12,14 @@
 	<title>Lista de Usurios</title>
 </head>
 <body>
+	<?php 
+
+		$buscar = strtolower($_REQUEST['buscar']);
+		if(empty($buscar)){
+			header('Location: listar_usuarios.php');
+		}
+
+	 ?>
 	<div class="container">
 		<div class="row shadow-none p-3 mb-5 bg-light rounded justify-content-center">	
 			<div class="col-md-9">
@@ -22,9 +30,10 @@
 							<a href="crear_usuario.php" class="btn btn-info"> Crear Usuario</a>
 						</div>	
 						<div class="col-sm-45">
-							<form class="form-inline my-2 my-lg-0" method="GET" action="buscar_usuarios.php">
+							<form class="form-inline my-2 my-lg-0" method="GET"
+								action="buscar_usuarios.php">
 								<input class="form-control mr-sm-2" type="text" placeholder="Buscar Usuario"
-								name="buscar" id="buscar">
+								name="buscar" id="buscar" value="<?= $_REQUEST['buscar']; ?>">
 								<button class="btn btn-outline-success my-2 my-sm-0" type="submit">
 								Buscar</button>
 							</form>
@@ -43,9 +52,12 @@
 						</thead>
 						<tbody>
 							<?php 
-
 							$sql_query = mysqli_query($conexion,"SELECT * FROM persona WHERE
-								status != 0");
+								id_persona LIKE '%$buscar%' OR nombre LIKE '%$buscar%' OR
+								apellido LIKE '%buscar%' OR telefono LIKE '%$buscar%' OR email LIKE
+								'%$buscar%' AND status != 0");
+							mysqli_close($conexion);
+
 							$result_query = mysqli_num_rows($sql_query);
 
 							if(!empty($result_query)){

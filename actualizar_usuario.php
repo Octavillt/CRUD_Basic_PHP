@@ -3,7 +3,7 @@ require_once('conexion.php');
 
 if(!empty($_POST)){
 	$alert = "";
-	
+
 	if(empty($_POST['txtnombre']) || empty($_POST['txtapellido']) || empty($_POST['txttelefono']) ||
 		empty($_POST['txtemail'])){	
 		$alert = '<div class="alert alert-warning text-center">
@@ -28,6 +28,7 @@ if(!empty($_POST)){
 		$sql_update = mysqli_query($conexion,"UPDATE persona SET nombre = '$nombre',
 			apellido = '$apellidos', telefono = $telefono, email = '$correo'
 			WHERE id_persona = $personaid");
+		
 		if(!empty($sql_update)){
 			$alert = '<div class="alert alert-success text-center">
 			Registrado Actualizado Correctamente.
@@ -45,11 +46,11 @@ if(!empty($_POST)){
 
 $personaid = $_REQUEST['id'];
 
-$sql_query = mysqli_query($conexion,"SELECT id_persona, nombre, apellido, telefono, email
-	FROM persona WHERE id_persona = '$personaid'");
+$sql_query = mysqli_query($conexion,"SELECT id_persona, nombre, apellido, telefono, email, status
+	FROM persona WHERE id_persona = $personaid AND status != 0");
 $result_query = mysqli_num_rows($sql_query);
 
-if($result_query < 0){
+if($result_query <= 0){
 	header('Location: listar_usuarios.php');
 }else{
 	while($data = mysqli_fetch_array($sql_query)){
@@ -75,6 +76,9 @@ if($result_query < 0){
 <body>
 	<div class="container">
 		<div class="row shadow-none p-3 mb-5 bg-light rounded justify-content-center">	
+			<div class="col-sm-25">
+				<a href="listar_usuarios.php" class="btn btn-info"> Listar Usuarios</a>
+			</div>
 			<div class="col-md-9">
 				<?= isset($alert) ? $alert : ''; ?>
 				<div class="card form shadow p-3 mb-5 bg-white rounded">
